@@ -1,4 +1,4 @@
-Modified from Shas45558 kernel source.
+Modified from Arafattex kernel source.
 
 How to build:
 
