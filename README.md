@@ -32,6 +32,8 @@ All files mentioned here are provided in the important files folder.
 Aditional credits:
 
 [TWRP Recovery](https://xdaforums.com/t/twrp-3-4-2b-cn-wszx150-for-merlin-redmi-note-9-redmi-10x-4g-unofficial.4345969/)
+
 [Patched vbmeta image](https://xdaforums.com/t/vbmeta-img-patched-vbmeta-image-partition-disabled-verity-disabled-verification-for-merlin-xiaomi-redmi-10x-4g-xiaomi-redmi-note-9.4221075/)
+
 [MTKclient](https://github.com/bkerler/mtkclient)
 
