@@ -28,8 +28,6 @@ How to install
     Put the boot.img in kitchen and run patch.sh
     
     After that just flash the new boot signed image to your device
-    
-All files mentioned here are provided in the important files folder.
 
 Aditional credits:
 
