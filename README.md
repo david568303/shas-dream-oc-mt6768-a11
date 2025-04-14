@@ -29,6 +29,8 @@ How to install
     
     After that just flash the new boot signed image to your device
 
+WARNING: WORK UNDER DEVELOPMENT, MAY NOT BE FINISHED.
+
 Aditional credits:
 
 [TWRP Recovery](https://xdaforums.com/t/twrp-3-4-2b-cn-wszx150-for-merlin-redmi-note-9-redmi-10x-4g-unofficial.4345969/)
