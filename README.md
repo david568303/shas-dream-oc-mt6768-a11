@@ -4,7 +4,7 @@ How to build:
 
     Clone or download code.
 
-    Go to this link ,clone or download and put all files in /clang-13/aaa (create this folder inside the root folder).
+    run: git clone https://github.com/kdrag0n/proton-clang.git ./clang-13/aaa
 
     Then run ./merlinp.sh to build kernel for Redmi Note 9.
 
