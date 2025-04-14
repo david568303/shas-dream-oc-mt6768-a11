@@ -1,31 +1,35 @@
-# shas-dream-oc-mt6768
+Modified from Shas45558 kernel source.
 
-Hi build your own kernel from my source..
+How to build:
 
-# what is needed:
+    Clone or download code.
 
-1.pc with ubuntu install
+    Go to this link ,clone or download and put all files in /clang-13/aaa (create this folder inside the root folder).
 
-2.some knowledge about build
+    Then run ./merlinp.sh to build kernel for Redmi Note 9.
 
+    Go AnyKernel3-master to get your zip file.
+How to install
 
-# How it workes:
-1.Clone or download my coad.
+    Flash vbmeta_vd171--V12.5.1.0.RJOMIXM.img to vbmeta partition (without it, the device will enter a bootloop).
 
-2.Extract if you download.
+    Flash TWRP.img to recovery partition.
 
-3.Make your pc envairnment to build kernel (Help from google).
+    Put the zip you compiled in an external SD Card ( or later sideload it ).
 
-4.go to https://github.com/kdrag0n/proton-clang.git clone or download put all file in /clang-13/aaa 
+    Reboot to recovery
 
-5.Then run ./lancelotp.sh or merlinp.sh to build kernel for specific devices. 
+    Use TWRP Recovery to install the kernel's zip.
 
-6. Go AnyKernel3-master to get your zip file.
+    Pull the boot.img from the device ( for example with MTKclient)
 
-7.Flash it from recovery.
+    If with MTKclient change boot.bin to boot.img.
 
-8.Enjoy.
+    Put the boot.img in kitchen and run patch.sh
 
-# Download latest version and discuss join...
+All files mentioned here are provided in the important files folder.
 
-https://t.me/ocmt6768
+Aditional credits:
+
+    [TWRP Recovery]([url](https://xdaforums.com/t/twrp-3-4-2b-cn-wszx150-for-merlin-redmi-note-9-redmi-10x-4g-unofficial.4345969/))
+    [Patched vbmeta image]([url](https://xdaforums.com/t/vbmeta-img-patched-vbmeta-image-partition-disabled-verity-disabled-verification-for-merlin-xiaomi-redmi-10x-4g-xiaomi-redmi-note-9.4221075/))
