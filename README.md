@@ -15,7 +15,7 @@ How to install
 
     Flash TWRP.img to recovery partition.
 
-    Put the zip you compiled in an external SD Card ( or later sideload it ).
+    Put the zip you obtained from AnyKernel3-master in an external SD Card ( or later sideload it ).
 
     Reboot to recovery
 
@@ -25,9 +25,11 @@ How to install
 
     If with MTKclient change boot.bin to boot.img.
 
-    Put the boot.img in kitchen and run patch.sh
+    Now you obtained your new boot, if you want to use apatch you will need to replace your ramdisk, then you can follow the next steps. ( INCOMPLETE )
     
-    After that just flash the new boot signed image to your device
+        Put the boot.img in kitchen and run patch.sh
+    
+        After that just flash the new boot signed image to your device
 
 WARNING: WORK UNDER DEVELOPMENT, MAY NOT BE FINISHED.
 
