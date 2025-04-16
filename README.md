@@ -25,7 +25,7 @@ How to install
 
     If with MTKclient change boot.bin to boot.img.
 
-    Now you obtained your new boot, if you want to use apatch you will need to replace your ramdisk, then you can follow the next steps. ( INCOMPLETE )
+    Now you obtained your new boot, if you want to use apatch you will replace the RAMDISK with the next steps. ( INCOMPLETE )
     
         Put the boot.img in kitchen and run patch.sh
     
