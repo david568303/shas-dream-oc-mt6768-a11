@@ -7,7 +7,7 @@ on:
   pull_request:
     branches:
       - merlin-r-oss-MIUI-13
-      workflow_dispatch:
+  workflow_dispatch:  # Correctly placed
 
 jobs:
   build-kernel:
@@ -28,23 +28,22 @@ jobs:
     - name: Set Up Proton Clang
       run: |
         mkdir -p shas-dream-oc-mt6768/clang-13/aaa
-        git clone https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
+        git clone --depth=1 https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
 
     - name: Build Kernel
       run: |
         cd shas-dream-oc-mt6768
-        chmod +x lancelotp.sh  # or merlinp.sh if needed
-        ./lancelotp.sh  # Replace with your actual build script
+        chmod +x lancelotp.sh  # Or merlinp.sh depending on your target
+        ./lancelotp.sh         # Replace with the correct build script
 
     - name: Upload ZIP Artifact
       uses: actions/upload-artifact@v3
       with:
         name: Kernel-ZIP
-        path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
+        path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Adjust if needed
         retention-days: 1
 
-    # Optional: Auto-create GitHub Release
-    - name: Create Release
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       if: success()
       with:
