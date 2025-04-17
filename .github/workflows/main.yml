@@ -1,0 +1,48 @@
+name: Build Kernel and Release ZIP
+
+on:
+  push:
+    branches: [ main ]  # Trigger on push to main branch
+
+jobs:
+  build-kernel:
+    name: Build Kernel
+    runs-on: ubuntu-latest  # Uses Ubuntu runner
+
+    steps:
+    - name: Checkout Kernel Source
+      uses: actions/checkout@v4
+      with:
+        path: shas-dream-oc-mt6768  # Your repo's directory name
+
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y git make gcc bc libssl-dev flex bison libelf-dev
+
+    - name: Set Up Proton Clang
+      run: |
+        mkdir -p shas-dream-oc-mt6768/clang-13/aaa
+        git clone https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
+
+    - name: Build Kernel
+      run: |
+        cd shas-dream-oc-mt6768
+        chmod +x lancelotp.sh  # or merlinp.sh if needed
+        ./lancelotp.sh  # Replace with your actual build script
+
+    - name: Upload ZIP Artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: Kernel-ZIP
+        path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
+        retention-days: 1
+
+    # Optional: Auto-create GitHub Release
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      if: success()
+      with:
+        files: shas-dream-oc-mt6768/AnyKernel3-master/*.zip
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
