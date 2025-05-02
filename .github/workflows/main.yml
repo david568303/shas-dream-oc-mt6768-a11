@@ -2,7 +2,8 @@ name: Build Kernel and Release ZIP
 
 on:
   push:
-    branches: [ main ]  # Trigger on push to main branch
+    branches: 
+      - kernelsu-next
 
 jobs:
   build-kernel:
