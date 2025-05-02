@@ -18,10 +18,17 @@ jobs:
 
     - name: Install Dependencies
       run: |
+        cd ~/
         sudo apt-get update
-        sudo apt-get install -y git make gcc bc libssl-dev flex bison libelf-dev
-
-    - name: Set Up Proton Clang
+        sudo apt-get install -y git make gcc bc flex bison libelf-dev build-essential zlib1g-dev libncurses5-dev libbz2-dev libreadline-dev libsqlite3-dev wget curl llvm libncursesw5-dev xz-utils tk-dev libxml2-dev libxmlsec1-dev libffi-dev libssl-dev
+        wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+        tar xzf Python-2.7.18.tgz
+        cd Python-2.7.18
+        ./configure
+        make
+        sudo make altinstall
+        
+    - name: Set Up Toolchain
       run: |
         mkdir -p shas-dream-oc-mt6768/clang-13/aaa
         git clone https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
@@ -29,8 +36,7 @@ jobs:
     - name: Build Kernel
       run: |
         cd shas-dream-oc-mt6768
-        chmod +x lancelotp.sh  # or merlinp.sh if needed
-        ./lancelotp.sh  # Replace with your actual build script
+        ./merlin.sh  # Replace with your actual build script
 
     - name: Upload ZIP Artifact
       uses: actions/upload-artifact@v4
