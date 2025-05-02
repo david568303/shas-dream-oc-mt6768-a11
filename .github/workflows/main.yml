@@ -27,6 +27,7 @@ jobs:
         ./configure
         make
         sudo make altinstall
+        whereis python2.7
     - name: Cache Proton Clang
       uses: actions/cache@v4
       with:
@@ -37,7 +38,6 @@ jobs:
       if: steps.cache-proton-clang.outputs.cache-hit != 'true'
       run: |
         git clone https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
-
 
     - name: Build Kernel
       run: |
