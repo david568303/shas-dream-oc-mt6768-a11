@@ -35,9 +35,13 @@ jobs:
         key: ${{ runner.os }}-proton-clang
 
     - name: Set Up Toolchain
-      if: steps.cache-proton-clang.outputs.cache-hit != 'true'
       run: |
-        git clone https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
+       if [ "${{ steps.cache-proton-clang.outputs.cache-hit }}" != "true" ]; then
+         git clone https://github.com/kdrag0n/proton-clang.git shas-dream-oc-mt6768/clang-13/aaa
+       else
+         echo "Using cached Toolchain to reduce action time"
+       fi
+
 
     - name: Build Kernel
       run: |
