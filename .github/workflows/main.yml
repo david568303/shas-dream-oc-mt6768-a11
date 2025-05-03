@@ -33,13 +33,13 @@ jobs:
     - name: Cache Proton Clang
       uses: actions/cache@v4
       with:
-        path: $HOME/clang-16/aaa
+        path: $HOME/clang-15/aaa
         key: ${{ runner.os }}-proton-clang
 
     - name: Set Up Toolchain
       run: |
        if [ "${{ steps.cache-proton-clang.outputs.cache-hit }}" != "true" ]; then
-         git clone https://gitlab.com/Jyotidwi/proton-clang.git -b clang-16 ~/clang-16/aaa
+         git clone https://gitlab.com/Jyotidwi/proton-clang.git -b clang-15 ~/clang-15/aaa
        else
          echo "Using cached Toolchain to reduce action time"
        fi
