@@ -3,7 +3,7 @@ name: Build Kernel and Release ZIP
 on:
   push:
     branches: 
-      - kernelsu-next
+      - speed-kernel
 
 jobs:
   build-kernel:
