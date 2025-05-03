@@ -33,13 +33,13 @@ jobs:
     - name: Cache Proton Clang
       uses: actions/cache@v4
       with:
-        path: $HOME/clang-13/aaa
+        path: $HOME/clang-16/aaa
         key: ${{ runner.os }}-proton-clang
 
     - name: Set Up Toolchain
       run: |
        if [ "${{ steps.cache-proton-clang.outputs.cache-hit }}" != "true" ]; then
-         git clone https://github.com/kdrag0n/proton-clang.git ~/clang-13/aaa
+         git clone https://gitlab.com/Jyotidwi/proton-clang.git -b clang-16 ~/clang-16/aaa
        else
          echo "Using cached Toolchain to reduce action time"
        fi
@@ -52,15 +52,6 @@ jobs:
     - name: Upload ZIP Artifact
       uses: actions/upload-artifact@v4
       with:
-        name: Kernel-ZIP
+        name: AnyKernel
         path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
         retention-days: 1
-
-    # Optional: Auto-create GitHub Release
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      if: success()
-      with:
-        files: shas-dream-oc-mt6768/AnyKernel3-master/*.zip
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
