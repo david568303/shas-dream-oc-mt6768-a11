@@ -27,7 +27,9 @@ jobs:
         ./configure
         make
         sudo make altinstall
+        sudo ln -s /usr/local/bin/python2.7 /usr/local/bin/python2
         whereis python2.7
+        whereis python2
     - name: Cache Proton Clang
       uses: actions/cache@v4
       with:
@@ -41,7 +43,6 @@ jobs:
        else
          echo "Using cached Toolchain to reduce action time"
        fi
-
 
     - name: Build Kernel
       run: |
