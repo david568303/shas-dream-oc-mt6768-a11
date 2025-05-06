@@ -54,4 +54,5 @@ jobs:
       with:
         name: AnyKernel
         path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
-        retention-days: 1
+        retention-days: 2
+        
