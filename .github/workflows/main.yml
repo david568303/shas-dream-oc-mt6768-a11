@@ -1,10 +1,8 @@
 name: Build Kernel and Release ZIP
 
 on:
-  push:
-    branches: 
-      - speed-kernel
-
+  workflow_dispatch:  # Enables manual trigger
+  
 jobs:
   build-kernel:
     name: Build Kernel
