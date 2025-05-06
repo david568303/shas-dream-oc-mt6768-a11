@@ -1,7 +1,9 @@
 name: Speed Kernel Upstream
 
 on:
-  workflow_dispatch:  # Enables manual trigger
+  push:
+    branches: 
+      - speed-kernel-upstream
   
 jobs:
   build-kernel:
