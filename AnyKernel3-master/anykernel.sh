@@ -4,7 +4,7 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=Shas Dream Project
+kernel.string=Speed Kernel
 do.devicecheck=1
 do.modules=0
 do.systemless=1
