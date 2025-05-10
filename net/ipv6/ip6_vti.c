@@ -774,7 +774,9 @@ vti6_ioctl(struct net_device *dev, struct ifreq *ifr, int cmd)
 	struct ip6_tnl *t = NULL;
 	struct net *net = dev_net(dev);
 	struct vti6_net *ip6n = net_generic(net, vti6_net_id);
-
+	
+	memset(&p1, 0, sizeof(p1));
+	
 	switch (cmd) {
 	case SIOCGETTUNNEL:
 		if (dev == ip6n->fb_tnl_dev) {
