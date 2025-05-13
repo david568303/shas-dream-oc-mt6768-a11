@@ -33,7 +33,7 @@ jobs:
     - name: Cache Proton Clang
       uses: actions/cache@v4
       with:
-        path: $HOME/clang-15/aaa
+        path: ~/clang-15/aaa
         key: ${{ runner.os }}-proton-clang
 
     - name: Set Up Toolchain
