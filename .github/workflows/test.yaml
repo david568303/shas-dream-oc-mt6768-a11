@@ -38,12 +38,3 @@ jobs:
         name: Kernel-ZIP
         path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
         retention-days: 1
-
-    # Optional: Auto-create GitHub Release
-    - name: Create Release
-      uses: softprops/action-gh-release@v1
-      if: success()
-      with:
-        files: outM/arch/arm64/boot/Image.gz
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
