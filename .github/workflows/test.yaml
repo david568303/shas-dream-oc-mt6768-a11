@@ -29,8 +29,8 @@ jobs:
     - name: Build Kernel
       run: |
         cd shas-dream-oc-mt6768
-        chmod +x lancelotp.sh  # or merlinp.sh if needed
-        ./lancelotp.sh  # Replace with your actual build script
+        chmod +x merlin.sh
+        ./merlin.sh
 
     - name: Upload ZIP Artifact
       uses: actions/upload-artifact@v4
