@@ -3,6 +3,7 @@ name: TESTS
 on:
   push:
     branches: [ main ]  # Trigger on push to main branch
+  workflow_dispatch:
 
 jobs:
   build-kernel:
