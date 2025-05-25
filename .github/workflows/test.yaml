@@ -36,5 +36,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: Kernel-ZIP
-        path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
+        path: outM/arch/arm64/boot/Image.gz
         retention-days: 1
