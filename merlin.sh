@@ -25,6 +25,6 @@ DATE=$(date "+%Y%m%d-%H%M")
 ZIPNAME="Shas-Dream-Merlin-R-vendor"
 cd ${PWD}/AnyKernel3-master
 rm *.zip *-dtb 
-cp $bp/arch/arm64/boot/Image.gz-dtb .
+cp $bp/arch/arm64/boot/Image.gz .
 zip -r9 "$ZIPNAME"-"${DATE}".zip *
 cd - || exit
