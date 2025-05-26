@@ -33,8 +33,9 @@ jobs:
         ./merlin.sh
 
     - name: Upload ZIP Artifact
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v3
       with:
-        name: out
-        path: shas-dream-oc-mt6768/outM/
+        name: Kernel-ZIP
+        path: shas-dream-oc-mt6768/AnyKernel3-master/*.zip  # Path to generated ZIP
         retention-days: 1
+
