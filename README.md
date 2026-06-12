@@ -1,4 +1,4 @@
-# merlin-r-oss
+# merlin-r-oss kernel
 
 Tools upstreamed to python3
 
