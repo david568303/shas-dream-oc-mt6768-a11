@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2016 MediaTek Inc.
@@ -16,46 +16,41 @@ import os, sys
 import collections
 import xml.dom.minidom
 
-from GpioObj import GpioObj
-from GpioObj import GpioObj_MT6799
-from GpioObj import GpioObj_MT6759
-from GpioObj import GpioObj_MT6739
-from GpioObj import GpioObj_MT6771
-from GpioObj import GpioObj_MT6763
-from GpioObj import GpioObj_MT6768
-from GpioObj import GpioObj_MT6785
+from .GpioObj import (
+    GpioObj, GpioObj_MT6799, GpioObj_MT6759, GpioObj_MT6739, 
+    GpioObj_MT6771, GpioObj_MT6763, GpioObj_MT6768, GpioObj_MT6785
+)
 
-from EintObj import EintObj
-from EintObj import EintObj_MT6750S
-from EintObj import EintObj_MT6739
-from EintObj import EintObj_MT6885
-from EintObj import EintObj_MT6853
+from .EintObj import ( 
+    EintObj, EintObj_MT6750S, EintObj_MT6739, EintObj_MT6885, EintObj_MT6853 
+)
 
-from AdcObj import AdcObj
-from AdcObj import AdcObj_MT6785
+from .AdcObj import (
+    AdcObj, AdcObj_MT6785
+)
 
-from ClkObj import ClkObj
-from ClkObj import ClkObj_MT6797
-from ClkObj import ClkObj_MT6757
-from ClkObj import ClkObj_MT6570
-from ClkObj import ClkObj_MT6779
+from .ClkObj import (
+    ClkObj, ClkObj_MT6797, ClkObj_MT6757, ClkObj_MT6570, ClkObj_MT6779
+)
 
-from I2cObj import I2cObj
-from I2cObj import I2cObj_MT6759
-from I2cObj import I2cObj_MT6775
+from .I2cObj import (
+    I2cObj, I2cObj_MT6759, I2cObj_MT6775
+)
 
-from PmicObj import PmicObj
-from PmicObj import PmicObj_MT6758
+from .PmicObj import (
+    PmicObj, PmicObj_MT6758
+)
 
-from Md1EintObj import Md1EintObj
-from Md1EintObj import Md1EintObj_MT6739
-from PowerObj import PowerObj
-from KpdObj import KpdObj
-from RfioObj import RfioObj
-from ModuleObj import ModuleObj
+from .Md1EintObj import (
+    Md1EintObj, Md1EintObj_MT6739
+)
 
-from utility.util import log
-from utility.util import LogLevel
+from .PowerObj import PowerObj
+from .KpdObj import KpdObj
+from .RfioObj import RfioObj
+from .ModuleObj import ModuleObj
+
+from utility.util import log, LogLevel
 
 para_map = {'adc':['adc_h', 'adc_dtsi'],\
             'clk':['clk_buf_h', 'clk_buf_dtsi'],\
@@ -190,7 +185,7 @@ class ChipObj:
             # return True
 
         for para in paras:
-            if cmp(para, 'cust_dtsi') == 0:
+            if para == 'cust_dtsi':
                 self.gen_custDtsi()
                 continue
 
@@ -228,7 +223,7 @@ class ChipObj:
         #sorted_list = sorted(self.__objs.keys())
         #for tag in sorted_list:
         for tag in self.__objs.keys():
-            if cmp(tag, 'gpio') == 0:
+            if tag == 'gpio':
                 gpioObj = self.create_obj(tag)
                 gen_str += ModuleObj.writeHeader(gpioObj.get_dtsiFileName())
                 gen_str += gpioObj.fill_mapping_dtsiFile()

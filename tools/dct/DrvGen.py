@@ -23,25 +23,11 @@ sys.dont_write_bytecode = True
 sys.path.append('.')
 sys.path.append('..')
 
-from obj.ChipObj import ChipObj
-from obj.ChipObj import MT6797
-from obj.ChipObj import MT6757
-from obj.ChipObj import MT6757_P25
-from obj.ChipObj import MT6570
-from obj.ChipObj import MT6799
-from obj.ChipObj import MT6759
-from obj.ChipObj import MT6763
-from obj.ChipObj import MT6750S
-from obj.ChipObj import MT6758
-from obj.ChipObj import MT6739
-from obj.ChipObj import MT8695
-from obj.ChipObj import MT6771
-from obj.ChipObj import MT6775
-from obj.ChipObj import MT6779
-from obj.ChipObj import MT6768
-from obj.ChipObj import MT6785
-from obj.ChipObj import MT6885
-from obj.ChipObj import MT6853
+from obj.ChipObj import (
+    ChipObj, MT6797, MT6757, MT6757_P25, MT6570, 
+    MT6799, MT6759, MT6763, MT6750S, MT6758, MT6739, 
+    MT8695, MT6771, MT6775, MT6779, MT6768, MT6785, MT6885, MT6853
+)
 
 from utility.util import LogLevel
 from utility.util import log
@@ -65,7 +51,7 @@ def is_oldDws(path, gen_spec):
 
     try:
         root = xml.dom.minidom.parse(dws_path)
-    except Exception, e:
+    except Exception as e:
         log(LogLevel.warn, '%s is not xml format, try to use old DCT!' %(dws_path))
         if len(gen_spec) == 0:
             log(LogLevel.warn, 'Please use old DCT UI to gen all files!')
@@ -144,45 +130,44 @@ if __name__ == '__main__':
     chipId = ChipObj.get_chipId(dws_path)
     log(LogLevel.info, 'chip id: %s' %(chipId))
     chipObj = None
-    if cmp(chipId, 'MT6797') == 0:
+    if chipId == 'MT6797':
         chipObj = MT6797(dws_path, gen_path)
-    elif cmp(chipId, 'MT6757') == 0:
+    elif chipId == 'MT6757':
         chipObj = MT6757(dws_path, gen_path)
-    elif cmp(chipId, 'MT6757-P25') == 0:
+    elif chipId == 'MT6757-P25':
         chipObj = MT6757_P25(dws_path, gen_path)
-    elif cmp(chipId, 'MT6570') == 0:
+    elif chipId == 'MT6570':
         chipObj = MT6570(dws_path, gen_path)
-    elif cmp(chipId, 'MT6799') == 0:
+    elif chipId == 'MT6799':
         chipObj = MT6799(dws_path, gen_path)
-    elif cmp(chipId, 'MT6763') == 0:
+    elif chipId == 'MT6763':
         chipObj = MT6763(dws_path, gen_path)
-    elif cmp(chipId, 'MT6759') == 0:
+    elif chipId == 'MT6759':
         chipObj = MT6759(dws_path, gen_path)
-    elif cmp(chipId, 'MT6750S') == 0:
+    elif chipId == 'MT6750S':
         chipObj = MT6750S(dws_path, gen_path)
-    elif cmp(chipId, 'MT6758') == 0:
+    elif chipId == 'MT6758':
         chipObj = MT6758(dws_path, gen_path)
-    elif cmp(chipId, 'MT6739') == 0:
+    elif chipId == 'MT6739':
         chipObj = MT6739(dws_path, gen_path)
-    elif cmp(chipId, 'MT8695') == 0 or \
-         cmp(chipId, 'MT8168') == 0:
+    elif chipId == 'MT8695' or chipId == 'MT8168':
         chipObj = MT8695(dws_path, gen_path)
-    elif cmp(chipId, 'MT6771') == 0 or \
-         cmp(chipId, 'MT6775') == 0 or \
-         cmp(chipId, 'MT6765') == 0 or \
-         cmp(chipId, 'MT3967') == 0 or \
-         cmp(chipId, 'MT6761') == 0:
+    elif chipId == 'MT6771' or \
+         chipId == 'MT6775' or \
+         chipId == 'MT6765' or \
+         chipId == 'MT3967' or \
+         chipId == 'MT6761':
         chipObj = MT6771(dws_path, gen_path)
-    elif cmp(chipId, 'MT6779') == 0:
+    elif chipId == 'MT6779':
         chipObj = MT6779(dws_path, gen_path)
-    elif cmp(chipId, 'MT6768') == 0:
+    elif chipId == 'MT6768':
         chipObj = MT6768(dws_path, gen_path)
-    elif cmp(chipId, 'MT6785') == 0:
+    elif chipId == 'MT6785':
         chipObj = MT6785(dws_path, gen_path)
-    elif cmp(chipId, 'MT6885') == 0 or \
-         cmp(chipId, 'MT6873') == 0:
+    elif chipId == 'MT6885' or \
+         chipId == 'MT6873':
         chipObj = MT6885(dws_path, gen_path)
-    elif cmp(chipId, 'MT6853') == 0:
+    elif chipId == 'MT6853':
         chipObj = MT6853(dws_path, gen_path)
     else:
         chipObj = ChipObj(dws_path, gen_path)

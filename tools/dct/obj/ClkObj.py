@@ -1,4 +1,4 @@
-#! /usr/bin/python
+#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2016 MediaTek Inc.
@@ -15,17 +15,13 @@
 import os
 import re
 import string
-import ConfigParser
+import configparser
 
 import xml.dom.minidom
 
-from ModuleObj import ModuleObj
-from data.ClkData import ClkData
-from data.ClkData import OldClkData
-from data.ClkData import NewClkData
-from utility.util import log
-from utility.util import LogLevel
-from utility.util import sorted_key
+from obj.ModuleObj import ModuleObj 
+from data.ClkData import ClkData, OldClkData, NewClkData
+from utility.util import log, LogLevel, sorted_key
 
 DEFAULT_AUTOK = 'AutoK'
 class ClkObj(ModuleObj):
@@ -63,17 +59,17 @@ class ClkObj(ModuleObj):
         return True
 
     def get_cfgInfo(self):
-        cp = ConfigParser.ConfigParser(allow_no_value=True)
+        cp = configparser.ConfigParser(allow_no_value=True)
         cp.read(ModuleObj.get_figPath())
 
-        count = string.atoi(cp.get('CLK_BUF', 'CLK_BUF_COUNT'))
+        count = int(cp.get('CLK_BUF', 'CLK_BUF_COUNT'))
         self.__count = count
 
         ops = cp.options('CLK_BUF')
         for op in ops:
             if op == 'clk_buf_count':
-                self.__count = string.atoi(cp.get('CLK_BUF', op))
-                ClkData._count = string.atoi(cp.get('CLK_BUF', op))
+                self.__count = int(cp.get('CLK_BUF', op))
+                ClkData._count = int(cp.get('CLK_BUF', op))
                 continue
 
             value = cp.get('CLK_BUF', op)
@@ -81,8 +77,8 @@ class ClkObj(ModuleObj):
 
             data = OldClkData()
             data.set_curList(var_list[2:])
-            data.set_defVarName(string.atoi(var_list[0]))
-            data.set_defCurrent(string.atoi(var_list[1]))
+            data.set_defVarName(int(var_list[0]))
+            data.set_defCurrent(int(var_list[1]))
 
             key = op[16:].upper()
             ModuleObj.set_data(self, key, data)
@@ -120,7 +116,7 @@ class ClkObj(ModuleObj):
         for key in sorted_key(ModuleObj.get_data(self).keys()):
             value = ModuleObj.get_data(self)[key]
             idx = value.get_curList().index(value.get_current())
-            if cmp(value.get_curList()[0], DEFAULT_AUTOK) == 0:
+            if value.get_curList()[0] == DEFAULT_AUTOK:
                 idx -= 1
 
             if idx >= 0:
@@ -155,7 +151,7 @@ class ClkObj(ModuleObj):
                 continue
             value = ModuleObj.get_data(self)[key]
             idx = value.get_curList().index(value.get_current())
-            if cmp(value.get_curList()[0], DEFAULT_AUTOK) == 0:
+            if value.get_curList()[0] == DEFAULT_AUTOK:
                 idx -= 1
             if idx < 0:
                 gen_str += '''(%d) ''' %(-1)
@@ -259,7 +255,7 @@ class ClkObj_MT6797(ClkObj):
             value = ModuleObj.get_data(self)[key]
             if key.find(self.__rf) != -1:
                 idx = value.get_curList().index(value.get_current())
-                if cmp(value.get_curList()[0], DEFAULT_AUTOK) == 0:
+                if value.get_curList()[0] == DEFAULT_AUTOK:
                     idx -= 1
                 gen_str += '''%d ''' %(idx)
 
@@ -274,16 +270,16 @@ class ClkObj_MT6797(ClkObj):
 class ClkObj_MT6757(ClkObj_MT6797):
 
     def __init__(self):
-        ClkObj_Everest.__init__(self)
+        super.__init__(self)
 
     def get_cfgInfo(self):
-        ClkObj_Everest.get_cfgInfo(self)
+        super.get_cfgInfo(self)
 
     def parse(self, node):
-        ClkObj_Everest.parse(self, node)
+        super.parse(self, node)
 
     def gen_files(self):
-        ClkObj_Everest.gen_files(self)
+        super.gen_files(self)
 
     def fill_hFile(self):
         gen_str = '''typedef enum {\n'''
@@ -322,7 +318,7 @@ class ClkObj_MT6757(ClkObj_MT6797):
                 continue
             value = ModuleObj.get_data(self)[key]
             idx = value.get_curList().index(value.get_current())
-            if cmp(value.get_curList()[0], DEFAULT_AUTOK) == 0:
+            if value.get_curList()[0] == DEFAULT_AUTOK:
                 idx -= 1
 
             if idx >= 0:
@@ -338,7 +334,7 @@ class ClkObj_MT6757(ClkObj_MT6797):
                 continue
             value = ModuleObj.get_data(self)[key]
             idx = value.get_curList().index(value.get_current())
-            if cmp(value.get_curList()[0], DEFAULT_AUTOK) == 0:
+            if value.get_curList()[0] == DEFAULT_AUTOK:
                 idx -= 1
 
             if idx >= 0:
@@ -359,10 +355,10 @@ class ClkObj_MT6570(ClkObj):
         ClkObj.parse(self, node)
 
     def get_cfgInfo(self):
-        cp = ConfigParser.ConfigParser(allow_no_value=True)
+        cp = configparser.ConfigParser(allow_no_value=True)
         cp.read(ModuleObj.get_figPath())
 
-        count = string.atoi(cp.get('CLK_BUF', 'CLK_BUF_COUNT'))
+        count = int(cp.get('CLK_BUF', 'CLK_BUF_COUNT'))
         self.__count = count
 
     def read(self, node):
@@ -417,7 +413,7 @@ class ClkObj_MT6570(ClkObj):
                 continue
             value = ModuleObj.get_data(self)[key]
             idx = value.get_curList().index(value.get_current())
-            if cmp(value.get_curList()[0], DEFAULT_AUTOK) == 0:
+            if value.get_curList()[0] == DEFAULT_AUTOK:
                 idx -= 1
 
             if idx >= 0:
@@ -484,7 +480,7 @@ class ClkObj_MT6779(ClkObj):
         return True
 
     def get_cfgInfo(self):
-        cp = ConfigParser.ConfigParser(allow_no_value=True)
+        cp = configparser.ConfigParser(allow_no_value=True)
         cp.read(ModuleObj.get_figPath())
 
         max_count = self.get_max_count(cp)
@@ -500,19 +496,19 @@ class ClkObj_MT6779(ClkObj):
             var_list = value.split(r'/')
 
             data = NewClkData()
-            data.set_defVarName(string.atoi(var_list[0]))
+            data.set_defVarName(int(var_list[0]))
 
             buf_output_list = var_list[1].split(r":")
             # only -1 means no data
             if len(buf_output_list) > 1:
                 data.cur_buf_output_list = buf_output_list[1:]
-                data.set_def_buf_output(string.atoi(buf_output_list[0]))
+                data.set_def_buf_output(int(buf_output_list[0]))
 
             driving_control_list = var_list[2].split(r":")
             # only -1 means no data
             if len(driving_control_list) > 1:
                 data.cur_driving_control_list = driving_control_list[1:]
-                data.set_def_driving_control(string.atoi(driving_control_list[0]))
+                data.set_def_driving_control(int(driving_control_list[0]))
 
             key = op[16:].upper()
             ModuleObj.set_data(self, key, data)
