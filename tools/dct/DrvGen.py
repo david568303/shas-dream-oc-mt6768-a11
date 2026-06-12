@@ -1,4 +1,4 @@
-#! /usr/local/bin/python2.7
+#! /usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # Copyright (C) 2016 MediaTek Inc.
@@ -47,7 +47,7 @@ from utility.util import LogLevel
 from utility.util import log
 
 def usage():
-    print '''
+    print ('''
 usage: DrvGen [dws_path] [file_path] [log_path] [paras]...
 
 options and arguments:
@@ -56,7 +56,7 @@ dws_path    :    dws file path
 file_path   :    where you want to put generated files
 log_path    :    where to store the log files
 paras        :    parameter for generate wanted file
-'''
+''')
 
 def is_oldDws(path, gen_spec):
     if not os.path.exists(path):
@@ -196,4 +196,3 @@ if __name__ == '__main__':
         sys.exit(-1)
 
     sys.exit(0)
-
