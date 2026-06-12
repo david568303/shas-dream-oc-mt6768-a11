@@ -1,4 +1,8 @@
-Modified from Arafattex kernel source.
+*merlin-r-oss*
+
+Tools upstreamed to python3
+
+
 
 How to build:
 
@@ -32,6 +36,8 @@ How to install
         After that just flash the new boot signed image to your device
 
 WARNING: WORK UNDER DEVELOPMENT, MAY NOT BE FINISHED.
+
+Modified from Arafattex kernel source.
 
 Aditional credits:
 
