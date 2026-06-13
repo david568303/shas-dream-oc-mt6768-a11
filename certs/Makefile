@@ -3,6 +3,11 @@
 # Makefile for the linux kernel signature checking certificates.
 #
 
+# Temporal fix for extract-cert not getting compiled
+hostprogs-y += extract-cert
+always += extract-cert
+HOSTLOADLIBES_extract-cert = -lcrypto
+
 obj-$(CONFIG_SYSTEM_TRUSTED_KEYRING) += system_keyring.o system_certificates.o
 obj-$(CONFIG_SYSTEM_BLACKLIST_KEYRING) += blacklist.o
 ifneq ($(CONFIG_SYSTEM_BLACKLIST_HASH_LIST),"")
@@ -22,10 +27,10 @@ $(obj)/system_certificates.o: $(obj)/x509_certificate_list
 AFLAGS_system_certificates.o := -I$(srctree)
 
 quiet_cmd_extract_certs  = EXTRACT_CERTS   $(patsubst "%",%,$(2))
-      cmd_extract_certs  = scripts/extract-cert $(2) $@ || ( rm $@; exit 1)
+      cmd_extract_certs  = $(obj)/extract-cert $(2) $@ || ( rm $@; exit 1)
 
 targets += x509_certificate_list
-$(obj)/x509_certificate_list: scripts/extract-cert $(SYSTEM_TRUSTED_KEYS_SRCPREFIX)$(SYSTEM_TRUSTED_KEYS_FILENAME) FORCE
+$(obj)/x509_certificate_list: $(obj)/extract-cert $(SYSTEM_TRUSTED_KEYS_SRCPREFIX)$(SYSTEM_TRUSTED_KEYS_FILENAME) FORCE
 	$(call if_changed,extract_certs,$(SYSTEM_TRUSTED_KEYS_SRCPREFIX)$(CONFIG_SYSTEM_TRUSTED_KEYS))
 endif # CONFIG_SYSTEM_TRUSTED_KEYRING
 
@@ -108,7 +113,12 @@ endif
 # GCC PR#66871 again.
 $(obj)/system_certificates.o: $(obj)/signing_key.x509
 
-targets += signing_key.x509
-$(obj)/signing_key.x509: scripts/extract-cert $(X509_DEP) FORCE
+$(obj)/signing_key.x509: $(X509_DEP) $(obj)/extract-cert FORCE
 	$(call if_changed,extract_certs,$(MODULE_SIG_KEY_SRCPREFIX)$(CONFIG_MODULE_SIG_KEY))
+targets += signing_key.x509
 endif # CONFIG_MODULE_SIG
+
+hostprogs := extract-cert
+
+HOSTCFLAGS_extract-cert.o = $(shell --cflags libcrypto 2> /dev/null) -I$(srctree)/scripts
+HOSTLDLIBS_extract-cert = $(shell pkg-config --libs libcrypto 2> /dev/null || echo -lcrypto)

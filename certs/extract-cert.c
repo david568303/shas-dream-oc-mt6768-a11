@@ -21,8 +21,7 @@
 #include <openssl/bio.h>
 #include <openssl/pem.h>
 #include <openssl/err.h>
-
-if OPENSSL_VERSION_MAJOR >= 3
+#if OPENSSL_VERSION_MAJOR >= 3
 # define USE_PKCS11_PROVIDER
 # include <openssl/provider.h>
 # include <openssl/store.h>
@@ -32,6 +31,7 @@ if OPENSSL_VERSION_MAJOR >= 3
 #  include <openssl/engine.h>
 # endif
 #endif
+#include "ssl-common.h"
 
 #define PKEY_ID_PKCS7 2
 
@@ -39,44 +39,9 @@ static __attribute__((noreturn))
 void format(void)
 {
 	fprintf(stderr,
-		"Usage: scripts/extract-cert <source> <dest>\n");
+		"Usage: extract-cert <source> <dest>\n");
 	exit(2);
 }
-
-static void display_openssl_errors(int l)
-{
-	const char *file;
-	char buf[120];
-	int e, line;
-
-	if (ERR_peek_error() == 0)
-		return;
-	fprintf(stderr, "At main.c:%d:\n", l);
-
-	while ((e = ERR_get_error_line(&file, &line))) {
-		ERR_error_string(e, buf);
-		fprintf(stderr, "- SSL %s: %s:%d\n", buf, file, line);
-	}
-}
-
-static void drain_openssl_errors(void)
-{
-	const char *file;
-	int line;
-
-	if (ERR_peek_error() == 0)
-		return;
-	while (ERR_get_error_line(&file, &line)) {}
-}
-
-#define ERR(cond, fmt, ...)				\
-	do {						\
-		bool __cond = (cond);			\
-		display_openssl_errors(__LINE__);	\
-		if (__cond) {				\
-			err(1, fmt, ## __VA_ARGS__);	\
-		}					\
-	} while(0)
 
 static const char *key_pass;
 static BIO *wb;
@@ -184,7 +149,7 @@ int main(int argc, char **argv)
 	} else if (!strncmp(cert_src, "pkcs11:", 7)) {
 		X509 *cert = load_cert_pkcs11(cert_src);
 		ERR(!cert, "load_cert_pkcs11 failed");
-+		write_cert(cert);
+		write_cert(cert);
 	} else {
 		BIO *b;
 		X509 *x509;
